@@ -17,6 +17,10 @@
   "permissions": [
     "notifications",
     "activeTab",
-    "background"
+    "background",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    "permissions.html"
   ]
 }

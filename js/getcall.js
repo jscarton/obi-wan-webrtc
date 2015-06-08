@@ -27,6 +27,13 @@ audioSource.ringOut.forEach(function(entry) {
 });
 
 $(document).ready(function(){
+
+  //request streaming permissions at extension install
+  chrome.runtime.onInstalled.addListener(function(details){
+    //ensure we have media stream permissions 
+  chrome.windows.create({url:chrome.extension.getURL("permissions.html")},function(){ console.log("permissions window created")});
+});
+  
   //add default video containers
   $("body,html").append("<div id=\"video_container\"/>");
   $("body,html").append("<div id=\"incoming-video\"/>");
@@ -65,8 +72,10 @@ $(document).ready(function(){
     //answers a call
     if (request.from=="btn_answer")
     {
-
       kandy.call.answerCall(callId,true);
+      chrome.extension.getViews({type:'tab'})[0].hideModal();
+      $audioRingOut[0].pause();
+      $audioRingIn[0].pause();
     }
   });
 });
@@ -108,22 +117,32 @@ function onKandyLogout(){
 function onCallIncoming(call, isAnonymous){
  console.log('===> Incoming call!');
  callId = call.getId();
- chrome.extension.getViews({type:'popup'})[0].showModal();
+ //
 
  $audioRingIn[0].play();
- 
+ console.log('Call Id = ' + callId);
 
- if (!isAnonymous) {
-  $('#caller').text(call.callerName);
-}else{
-  $('#caller').text('Anonymous!');
-}
+        var noti_opt = {
+          type: "basic",
+          title: "Incoming Call!",
+          message: "Click Here To Answer the Call!",
+          iconUrl: "assets/nexogy-icon.png"
+        }
+
+      chrome.notifications.create("incoming_call!", noti_opt, function(){});
+      chrome.notifications.onClicked.addListener(function(){
+        
+        chrome.tabs.create({'url': chrome.extension.getURL('index.html')}, function(){
+          chrome.extension.getViews({type:'tab'})[0].showModal();
+        });
+
+      });
 }
 
 function onCallAnswer(call) {
   callId = call.getId();
 
-  chrome.extension.getViews({type:'popup'})[0].hideModal();
+  chrome.extension.getViews({type:'tab'})[0].hideModal();
 
   $audioRingOut[0].pause();
   $audioRingIn[0].pause();

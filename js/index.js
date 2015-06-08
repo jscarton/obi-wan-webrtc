@@ -54,7 +54,7 @@ function showModal()
    		show: 'true'
  	});
 }
-function showModal()
+function hideModal()
 {
 	$('#modal_call').modal({
    		show: 'false'
