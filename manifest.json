@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "obi-wan",
+  "description": "WebRTC-Based Online Support extension by Nexogy",
+  "version": "0.2",
+  "background": {
+    "scripts": [
+      "js/jquery-1.11.2.min.js",
+      "js/fcs.js", 
+      "js/kandy.js", 
+      "js/getcall.js"]
+  },
+  "browser_action": {
+    "default_icon": "assets/nexogy-icon.png"
+  },
+  "permissions": [
+    "notifications",
+    "activeTab",
+    "background"
+  ]
+}
