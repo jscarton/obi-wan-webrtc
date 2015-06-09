@@ -24,6 +24,13 @@
 					</form>
 				</div>
 			</div>
+			<div id="logged" style="display:none">
+				<span>
+		  		<i class="fa fa-user"></i>
+				</span>
+				<h1>You are logged as</h1>
+				<h2>Support</h2>
+			</div>
 	 	</div>
 
  		<div class="row oncall-screen" id="oncall_screen">
@@ -36,11 +43,19 @@
  					<div id="incoming-video" style="visibility:hidden;"></div>
  				</div>
 
- 				<div class="chat-tab">
- 					<div class="header">
- 						<h3>Chat with me</h3>
- 					</div>
- 				</div>
+ 				<div class="chat-container">
+					<div class="header">
+						<h3>Chat Here!</h3>
+					</div>
+					<div class="messages">
+						<ul id="messages"></ul>
+					</div>
+					<div class="send-container">
+						<form id="frm_send" method="post">
+							<input type="text" id="txt_send" class="text-send" placeholder="Write Here!"> 
+						</form>
+					</div>
+				</div>
  			</div>
  			<div class="col-md-8 right-side">
  				<div class="header">

@@ -1,7 +1,9 @@
 var callId;
 var isLoggedIn=false;
+var isOnCall=false;
 var $audioRingIn = $('<audio>', { loop: 'loop', id: 'ring-in' });
 var $audioRingOut = $('<audio>', { loop: 'loop', id: 'ring-out' });
+var $userTo = 'sender@oliveryepez.gmail.com';
 
 var $apiKey = 'DAK00068abf414f4e6fa818a123a1f3fd4d';
 
@@ -74,6 +76,11 @@ $(document).ready(function(){
     {
       KandyAPI.Phone.answerCall(callId,true);
     }
+    //send messages
+    if (request.from=="msg_send")
+    {
+      sendMessages(request.message);
+    }
   });
 });
 
@@ -99,6 +106,7 @@ function onLoginSuccess(){
   isLoggedIn=true;
   console.log("===> Login Success!");
   chrome.extension.getViews({type:'popup'})[0].hideLogin(); 
+  setInterval(function() { recieveMessages(); },1000);
 }
 
 function onLoginFailed(){
@@ -113,6 +121,7 @@ function onKandyLogout(){
 
 
 function onCallIncoming(call, isAnonymous){
+ isOnCall=true;
  console.log('===> Incoming call!');
  callId = call.getId();
  //
@@ -154,9 +163,42 @@ function onCall(call) {
 }
 
 function onCallTerminate(call) {
+  isOnCall=false;
   console.log('===> call ended');
   callId = null;
 
   $audioRingIn[0].pause();
   $audioRingOut[0].pause();
 }
+
+function sendMessages(msg){
+  var $message = msg;
+
+  KandyAPI.Phone.sendIm($userTo, $message, function(){
+    console.log('===> Send message success!');
+  },
+  function(){
+    console.log('===> Failed sending Message');
+  });
+  }
+
+  function recieveMessages(){
+    if (isLoggedIn && isOnCall)
+    {
+      KandyAPI.Phone.getIm(function(data){
+       console.log('===> recieving messages!');
+      data.messages.forEach(function(msg){
+         if(msg.messageType == 'chat' && msg.contentType === 'text' && msg.message.mimeType == 'text/plain') {
+            
+            chrome.extension.getViews({type:'tab'})[0].receiveMessages(msg);
+            
+         }else{
+            console.log('received ' + msg.messageType + ': ');
+         }
+      });
+      },
+      function(){
+      console.log('===> Failed recieving messages!');
+      });
+    }
+  }
