@@ -1,0 +1,33 @@
+@font-face {
+    font-family: Gotham;
+    src: url(fonts/Gotham.ttf);
+}
+@font-face {
+    font-family: "Gotham Bold";
+    src: url(fonts/Gotham-bold.ttf);
+}
+body{
+	font-family: Gotham;
+}
+.container{
+ position: fixed;
+ top: 50%;
+ left: 50%;
+  /* bring your own prefixes */
+ transform: translate(-50%, -50%);
+ font-style: 14px;
+ line-height: 1.5em;
+ width: 40%;
+}
+.container .header{
+	text-align: center;
+}
+.container h2{
+	text-align: center;
+	color: #f7ca18;
+}
+.container .content{
+	background: #505050;
+	color: #FFF;
+	padding: 22px;
+}
