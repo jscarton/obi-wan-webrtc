@@ -22,7 +22,10 @@ body{
 .container .header{
 	text-align: center;
 }
-
+.container h2{
+	text-align: center;
+	color: #f7ca18;
+}
 .container .content{
 	background: #505050;
 	color: #FFF;
