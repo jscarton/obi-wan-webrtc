@@ -49,8 +49,8 @@ $(document).ready(function(){
       var $username=request.username;
       var $password=request.password;
       kandy.setup({
-        remoteVideoContainer:$("#video_container")[0],
-        localVideoContainer:$("#incoming-video")[0],
+        remoteVideoContainer:$("#incoming-video")[0],
+        localVideoContainer:$("#video_container")[0],
         listeners: {
           /********* Login **********/
           loginsuccess: onLoginSuccess,
@@ -61,8 +61,8 @@ $(document).ready(function(){
           oncall: onCall,
           callanswered: onCallAnswer,
           callended: onCallTerminate,
-          /*remotevideoinitialized:onRemoteVideoInitialized,
-          localvideoinitialized:onLocalVideoInitialized*/
+          /*remotevideoinitialized:onRemoteVideoInitialized,*/
+          /*localvideoinitialized:onLocalVideoInitialized
           /* callrejected: onCallRejected*/
         }
       });
@@ -72,10 +72,7 @@ $(document).ready(function(){
     //answers a call
     if (request.from=="btn_answer")
     {
-      kandy.call.answerCall(callId,true);
-      chrome.extension.getViews({type:'tab'})[0].hideModal();
-      $audioRingOut[0].pause();
-      $audioRingIn[0].pause();
+      KandyAPI.Phone.answerCall(callId,true);
     }
   });
 });
@@ -95,7 +92,8 @@ function onRemoteVideoInitialized(videoTag)
 
 function onLocalVideoInitialized(videoTag)
 {
-  chrome.extension.getViews({type:'popup'})[0].localVideo(videoTag);
+  console.log("fired");
+  chrome.extension.getViews({type:'tab'})[0].localVideo(videoTag);
 }
 function onLoginSuccess(){
   isLoggedIn=true;
@@ -132,18 +130,15 @@ function onCallIncoming(call, isAnonymous){
       chrome.notifications.create("incoming_call!", noti_opt, function(){});
       chrome.notifications.onClicked.addListener(function(){
         
-        chrome.tabs.create({'url': chrome.extension.getURL('index.html')}, function(){
-          chrome.extension.getViews({type:'tab'})[0].showModal();
-        });
+        chrome.tabs.create({'url': chrome.extension.getURL('index.html')}, function(){});
 
       });
 }
 
 function onCallAnswer(call) {
+  console.log("====> initiated");
   callId = call.getId();
-
-  chrome.extension.getViews({type:'tab'})[0].hideModal();
-
+  chrome.extension.getViews({type:'tab'})[0].localVideo($("#video_container")[0].innerHTML);
   $audioRingOut[0].pause();
   $audioRingIn[0].pause();
 }

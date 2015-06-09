@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "obi-wan",
-  "description": "WebRTC-Based Online Support extension by Nexogy",
+  "name": "nexogy-vdv-100",
+  "description": "Nexogy's VDV-100 WebRTC Communicator",
   "version": "0.2",
   "background": {
     "scripts": [
@@ -11,6 +11,8 @@
       "js/kandy.js", 
       "js/getcall.js"]
   },
+  "icons": { "256": "assets/icon256.png",
+             "32": "assets/icon32.png" },
   "browser_action": {
     "default_icon": "assets/nexogy-icon.png"
   },

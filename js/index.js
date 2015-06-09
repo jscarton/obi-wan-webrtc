@@ -20,6 +20,7 @@ $('#btn_show').click(function(){
 });
 
 $('#btn_answer').click(function() {
+  hideModal();
   chrome.extension.sendMessage({from: 'btn_answer'});
 });
 
@@ -61,12 +62,7 @@ function hideModal()
  	});
 }
 
-function remoteVideo(videoTag)
+function localVideo(videoTag)
 {
-	$("#video_container")[0].append(videoTag);
-}
-
-function getRemoteVideoContainer()
-{
-	$("#incoming-video")[0].append(videoTag);
+	$("#video_container")[0].innerHTML=videoTag;
 }

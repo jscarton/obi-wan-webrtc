@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-	<title>Nexogy's On Line Support</title>
+	<title>Nexogy's VDV-100 WebRTC Communicator</title>
 	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="styles/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
@@ -12,7 +12,7 @@
 	 	<div class="form-wrap row">
 			<div id="login-form">
 				<div class="form-header">	
-					<img src="assets/logo-big.png">
+					<img src="assets/icon256.png">
 				</div>
 				<div class="form-content">
 					<form id="frmLogin" action="" method="post">
@@ -46,33 +46,11 @@
  				<div class="header">
  					<button type="button" class="btn btn-signout" id="btn_signout">Sign out</button>
  					<button class="btn btn-hangup" id="btn_hangup">Hangup</button>
+ 					<button class="btn btn-hangup" id="btn_reject">Reject</button>
+					<button class="btn btn-answer" id="btn_answer">Answer</button>
  				</div>
  			</div>
  		</div>
-
- 		<div class="modal fade" id="modal_call">
- 			<div class="modal-dialog">
- 				<div class="modal-content">
- 					<div class="modal-header">
- 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
- 							<span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
- 						</button>
- 						<h3 class="modal-title">
- 						<span class="glyphicon glyphicon-earphone"></span>
- 						Incomming call!
- 						</h3>
- 					</div>
- 					<div class="modal-body">
- 						<label>Incoming call from <strong id="caller"></strong></label>
- 					</div>
- 					<div class="modal-footer">
-						<button class="btn btn-hangup" id="btn_reject">Reject</button>
-						<button class="btn btn-answer" id="btn_answer">Answer</button>
- 					</div>
- 				</div>
- 			</div>
- 		</div>
-
  	</div>
 </body>
 </html>
